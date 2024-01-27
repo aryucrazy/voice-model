@@ -1,0 +1,9 @@
+#!/bin/sh
+
+echo "enter path"
+read path
+
+cat ~/$path | tr -d '\n' | sed -e '2,$s/\./ /g' | \
+  piper --model en_US-libritts-high.onnx --output-raw | \
+  aplay -r 22050 -f S16_LE -t raw - >/dev/null
+
